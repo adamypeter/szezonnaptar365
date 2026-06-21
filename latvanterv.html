@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Látványterv – SzezONaptár-365</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream:  #F4EFE4;
+      --burg:   #8A3B3B;
+      --dark:   #3A3028;
+      --text:   #2C1F18;
+      --muted:  #7A6A5A;
+      --border: #D8CCBA;
+      --white:  #FFFDF8;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--cream);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Fejléc ── */
+    .topbar {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 13px;
+      transition: color 0.15s;
+    }
+    .back-link:hover { color: var(--burg); }
+
+    .topbar-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      color: var(--dark);
+    }
+
+    .topbar-title span { color: var(--burg); }
+
+    /* ── Alcím sáv ── */
+    .subtitle-bar {
+      text-align: center;
+      padding: 20px 20px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .subtitle-bar h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: var(--dark);
+      font-weight: 700;
+    }
+
+    .subtitle-bar p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ── PDF nézegető ── */
+    .viewer-wrap {
+      flex: 1;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .pdf-frame {
+      width: 100%;
+      flex: 1;
+      min-height: calc(100vh - 160px);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--white);
+    }
+
+    /* ── Letöltés gomb ── */
+    .dl-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--burg);
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 8px;
+      align-self: center;
+      transition: opacity 0.15s;
+    }
+    .dl-btn:hover { opacity: 0.85; }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <a class="back-link" href="index.html">← Vissza</a>
+    <div class="topbar-title">
+      <span>SzezON</span>aptár-365
+    </div>
+  </div>
+
+  <div class="subtitle-bar">
+    <h1>Látványterv</h1>
+    <p>A SzezONaptár-365 mind a 12 hónapja</p>
+  </div>
+
+  <div class="viewer-wrap">
+
+    <!--
+      IDE KELL BEILLESZTENI A GOOGLE DRIVE EMBED LINKET.
+
+      Hogyan:
+      1. Töltsd fel a PDF-et Google Drive-ra
+      2. Jobb klikk → Megosztás → "Bárki, akinek van a link" → Megtekintő
+      3. Jobb klikk → Beágyazás → másold ki az iframe src= értékét
+      4. Illeszd be az alábbi src="" helyére
+
+      A link így néz ki:
+      https://drive.google.com/file/d/AZONOSITO/preview
+    -->
+    <iframe
+      class="pdf-frame"
+      src="https://drive.google.com/file/d/1iJf2X7QTGTR2Q4msE3TQ4NtfaVoXXzxu/preview"
+      allow="autoplay"
+      frameborder="0"
+      title="SzezONaptár-365 látványterv"
+    ></iframe>
+
+    <a class="dl-btn" href="https://drive.google.com/file/d/1iJf2X7QTGTR2Q4msE3TQ4NtfaVoXXzxu/preview" target="_blank" rel="noopener">
+      ↓ Megnyitás teljes képernyőn
+    </a>
+
+  </div>
+
+</body>
+</html>

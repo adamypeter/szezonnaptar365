@@ -314,6 +314,46 @@
       white-space: nowrap;
     }
 
+    /* ── Látványterv gomb ── */
+    .latvanterv-btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--dark);
+      color: #fff;
+      border-radius: var(--r);
+      padding: 18px 18px;
+      text-decoration: none;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+    .latvanterv-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    .latvanterv-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .latvanterv-text { flex: 1; }
+
+    .latvanterv-title {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .latvanterv-sub {
+      display: block;
+      font-size: 12px;
+      opacity: 0.65;
+      margin-top: 2px;
+    }
+
+    .latvanterv-arrow {
+      font-size: 18px;
+      opacity: 0.6;
+      flex-shrink: 0;
+    }
+
     .footer-copy {
       font-size: 11px;
       color: var(--muted);
@@ -440,6 +480,19 @@
       </div>
     </details>
 
+  </section>
+
+  <!-- ── Látványterv ── -->
+  <section class="section">
+    <p class="section-label">Partnereknek</p>
+    <a class="latvanterv-btn" href="latvanterv.html">
+      <span class="latvanterv-icon">📄</span>
+      <span class="latvanterv-text">
+        <span class="latvanterv-title">Látványterv megtekintése</span>
+        <span class="latvanterv-sub">Mind a 12 hónap – teljes tervezői anyag</span>
+      </span>
+      <span class="latvanterv-arrow">→</span>
+    </a>
   </section>
 
   <!-- ── Footer ── -->

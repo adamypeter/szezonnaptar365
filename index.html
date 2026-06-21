@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SzezONaptár 365</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream:  #F4EFE4;
+      --cream2: #EDE6D6;
+      --burg:   #7B1C28;
+      --text:   #2C1F18;
+      --muted:  #7A6A5A;
+      --border: #D8CCBA;
+      --white:  #FFFDF8;
+      --r: 14px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--cream);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+    }
+
+    .page {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    /* ── TVE szponzor sáv (legfelül) ── */
+    .sponsor-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 18px 0 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sponsor-bar a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .sponsor-bar a:hover { opacity: 0.8; }
+
+    .sponsor-bar img {
+      height: 44px;
+      width: auto;
+    }
+
+    .sponsor-bar-text {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.4;
+      text-align: left;
+    }
+
+    .sponsor-bar-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      padding: 36px 0 28px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--burg);
+      line-height: 1.1;
+    }
+
+    .header h1 em {
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .header-sub {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    /* ── Section ── */
+    .section { margin-top: 32px; }
+
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Alkotó kártya ── */
+    .creator-card {
+      background: var(--burg);
+      color: #fff;
+      border-radius: var(--r);
+      padding: 20px 18px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-decoration: none;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+    .creator-card:hover { opacity: 0.92; transform: translateY(-1px); }
+
+    .creator-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      border: 2px solid rgba(255,255,255,0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .creator-text { flex: 1; }
+
+    .creator-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .creator-handle {
+      font-size: 12px;
+      opacity: 0.72;
+      margin-top: 2px;
+    }
+
+    .creator-cta {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-top: 7px;
+    }
+
+    /* ── Expandable listák ── */
+    details {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+
+    details summary {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 15px 18px;
+      cursor: pointer;
+      list-style: none;
+    }
+    details summary::-webkit-details-marker { display: none; }
+
+    .sum-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 19px;
+      flex-shrink: 0;
+    }
+    .sum-icon.cafe  { background: #3A7D44; }
+    .sum-icon.farm  { background: #8B6914; }
+
+    .sum-text { flex: 1; }
+
+    .sum-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .sum-desc {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 300;
+      margin-top: 2px;
+    }
+
+    .chevron {
+      color: var(--muted);
+      font-size: 16px;
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+    details[open] summary .chevron { transform: rotate(180deg); }
+
+    .list-inner {
+      padding: 0 18px 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    .list-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: var(--text);
+    }
+    .list-item:last-child { border-bottom: none; }
+
+    .list-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--burg);
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .list-name {
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .list-item:hover .list-name { color: var(--burg); }
+
+    .list-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      margin-top: 52px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .supporters {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 6px;
+    }
+
+    .supporter-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 7px 16px 7px 7px;
+      text-decoration: none;
+      transition: border-color 0.15s;
+    }
+    .supporter-pill:hover { border-color: var(--burg); }
+
+    .supporter-pill img {
+      height: 30px;
+      width: auto;
+    }
+
+    .supporter-pill-placeholder {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--cream2);
+      border: 1px dashed var(--border);
+      flex-shrink: 0;
+    }
+
+    .supporter-pill-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .footer-copy {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 22px;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ── Tudatos Vásárlók szponzor sáv ── -->
+  <div class="sponsor-bar">
+    <a href="https://tudatosvasarlok.hu" target="_blank" rel="noopener">
+      <img src="tudatos_vasarlok_logo.svg" alt="Tudatos Vásárlók Egyesülete" />
+      <div class="sponsor-bar-text">
+        <div class="sponsor-bar-name">Tudatos Vásárlók Egyesülete</div>
+        Látogasd meg weboldalunkat →
+      </div>
+    </a>
+  </div>
+
+  <!-- ── Cím ── -->
+  <header class="header">
+    <h1>SzezONaptár<br><em>365</em></h1>
+    <p class="header-sub">Szezonális ötletek és szakmai inspirációk<br>egész éven át.</p>
+  </header>
+
+  <!-- ── Az alkotó ── -->
+  <section class="section">
+    <p class="section-label">Az alkotó</p>
+
+    <a class="creator-card" href="https://instagram.com/dietetikus_novenyi_alapon" target="_blank" rel="noopener">
+      <div class="creator-avatar">🌿</div>
+      <div class="creator-text">
+        <div class="creator-name">Melegh Laura</div>
+        <div class="creator-handle">@dietetikus_novenyi_alapon</div>
+        <div class="creator-cta">Kövess Instagramon →</div>
+      </div>
+    </a>
+  </section>
+
+  <!-- ── Szezonális helyek ── -->
+  <section class="section">
+    <p class="section-label">Szezonális helyek</p>
+
+    <details>
+      <summary>
+        <span class="sum-icon cafe">☕</span>
+        <span class="sum-text">
+          <span class="sum-title">Kávézók &amp; éttermek</span>
+          <span class="sum-desc">Ahol szezonális termékeket találsz</span>
+        </span>
+        <span class="chevron">▾</span>
+      </summary>
+      <div class="list-inner">
+        <a class="list-item" href="#" target="_blank">
+          <span class="list-dot"></span>
+          <span>
+            <div class="list-name">Példa Kávézó</div>
+            <div class="list-sub">Budapest, V. kerület · szezonális reggeli</div>
+          </span>
+        </a>
+        <a class="list-item" href="#" target="_blank">
+          <span class="list-dot"></span>
+          <span>
+            <div class="list-name">Zöld Étterem</div>
+            <div class="list-sub">Budapest, VII. kerület · növényi menü</div>
+          </span>
+        </a>
+        <a class="list-item" href="#" target="_blank">
+          <span class="list-dot"></span>
+          <span>
+            <div class="list-name">Piac Bisztró</div>
+            <div class="list-sub">Budapest, IX. kerület · napi friss ajánlat</div>
+          </span>
+        </a>
+      </div>
+    </details>
+
+  </section>
+
+  <!-- ── Termelők ── -->
+  <section class="section">
+    <p class="section-label">Megbízható termelők</p>
+
+    <details open>
+      <summary>
+        <span class="sum-icon farm">🌾</span>
+        <span class="sum-text">
+          <span class="sum-title">Szezonális termelők</span>
+          <span class="sum-desc">Közvetlen termelői kapcsolatok</span>
+        </span>
+        <span class="chevron">▾</span>
+      </summary>
+      <div class="list-inner">
+        <a class="list-item" href="https://farm2fork.hu/" target="_blank" rel="noopener">
+          <span class="list-dot"></span>
+          <span>
+            <div class="list-name">Farm2Fork</div>
+            <div class="list-sub">Szezonális termékek hazai termelőktől</div>
+          </span>
+        </a>
+        <a class="list-item" href="#" target="_blank">
+          <span class="list-dot"></span>
+          <span>
+            <div class="list-name">Termelő neve</div>
+            <div class="list-sub">Megye · termékek</div>
+          </span>
+        </a>
+        <a class="list-item" href="#" target="_blank">
+          <span class="list-dot"></span>
+          <span>
+            <div class="list-name">Termelő neve</div>
+            <div class="list-sub">Megye · termékek</div>
+          </span>
+        </a>
+      </div>
+    </details>
+
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <p class="footer-label">Támogatók</p>
+
+    <div class="supporters">
+      <!-- TVE logóval -->
+      <a class="supporter-pill" href="https://tudatosvasarlok.hu" target="_blank" rel="noopener">
+        <img src="tudatos_vasarlok_logo.svg" alt="Tudatos Vásárlók Egyesülete" />
+        <span class="supporter-pill-name">Tudatos Vásárlók</span>
+      </a>
+
+      <!-- Placeholder 2. támogató -->
+      <a class="supporter-pill" href="#" target="_blank">
+        <div class="supporter-pill-placeholder"></div>
+        <span class="supporter-pill-name">Támogató 2</span>
+      </a>
+
+      <!-- Placeholder 3. támogató -->
+      <a class="supporter-pill" href="#" target="_blank">
+        <div class="supporter-pill-placeholder"></div>
+        <span class="supporter-pill-name">Támogató 3</span>
+      </a>
+    </div>
+
+    <p class="footer-copy">© 2025 SzezONaptár 365 · Melegh Laura</p>
+  </footer>
+
+</div>
+</body>
+</html>
